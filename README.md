@@ -1,5 +1,7 @@
 # API Recorder (接口流量录制与调测工具)
 
+![preview](assets/preview.png)
+
 这是一款基于 Playwright 的高美学交互式接口录制工具。通过拦截你在浏览器中的自然操作，自动将抓取的业务流量转换为结构化的 **YAML** 和 **Excel API 文档**，并内置了具备高容错性的调测工具。
 
 ## 快速开始

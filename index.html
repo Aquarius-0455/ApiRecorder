@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Recorder | Simple & Pure</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #f5f5f7;
+            --white: #ffffff;
+            --text-main: #1d1d1f;
+            --text-sub: #86868b;
+            --apple-blue: #0071e3;
+            --border: #d2d2d7;
+            --ease: cubic-bezier(0.15, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 顶部导航条（Apple 风格） */
+        header {
+            width: 100%;
+            height: 52px;
+            background: rgba(245, 245, 247, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            width: 100%;
+            max-width: 980px;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-weight: 600;
+            font-size: 19px;
+            letter-spacing: -0.02em;
+        }
+
+        .status {
+            font-size: 12px;
+            color: var(--text-sub);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            background: #34c759;
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(52, 199, 89, 0.4);
+            animation: apple-breathe 3s ease-in-out infinite;
+        }
+
+        @keyframes apple-breathe {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.9); }
+        }
+
+        /* 主体区域 */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 52px;
+        }
+
+        .hero {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: clamp(40px, 8vw, 76px);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 12px;
+        }
+
+        p.tagline {
+            font-size: clamp(19px, 2.5vw, 24px);
+            font-weight: 400;
+            color: var(--text-sub);
+            margin-bottom: 50px;
+            letter-spacing: -0.01em;
+        }
+
+        /* 搜索容器 */
+        .search-area {
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        .input-pill {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+        }
+
+        .input-pill:focus-within {
+            border-color: #86868b;
+        }
+
+        input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 12px 20px;
+            font-size: 17px;
+            color: var(--text-main);
+            outline: none;
+        }
+
+        input::placeholder {
+            color: #c4c4c6;
+        }
+
+        .btn-blue {
+            background-color: var(--apple-blue);
+            color: var(--white);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-blue:hover {
+            opacity: 0.9;
+        }
+
+        .btn-blue:active {
+            opacity: 0.8;
+            transform: scale(0.98);
+        }
+
+        /* 历史记录（克制排版） */
+        .history {
+            margin-top: 32px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .history-link {
+            font-size: 14px;
+            color: var(--apple-blue);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .history-link:hover {
+            text-decoration: underline;
+        }
+
+        /* 底部描述 */
+        footer {
+            padding: 60px 20px;
+            background: var(--white);
+            border-top: 1px solid var(--border);
+        }
+
+        .features {
+            max-width: 980px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .feat-item h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feat-item p {
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+
+        /* 加载状态 */
+        .loader {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .is-loading .loader { display: block; }
+        .is-loading span { display: none; }
+
+        @media (max-width: 768px) {
+            .features { grid-template-columns: 1fr; gap: 30px; }
+            h1 { font-size: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-content">
+            <span class="brand">API Recorder</span>
+            <div class="status">
+                <div class="dot"></div>
+                录制引擎已就绪
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero">
+            <h1>API 流量录制中心</h1>
+            <p class="tagline">快速捕获网络请求，一键生成接口定义。</p>
+
+            <div class="search-area">
+                <div class="input-pill" id="inputContainer">
+                    <input type="text" id="urlInput" placeholder="输入目标地址 (如: app.example.com)..." autofocus onkeydown="if(event.keyCode==13) navigate()">
+                    <button class="btn-blue" id="navBtn" onclick="navigate()">
+                        <div class="loader"></div>
+                        <span>即刻捕获</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="history" id="historySection"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="features">
+            <div class="feat-item">
+                <h3>精准路径规划</h3>
+                <p>先进的路径归一化算法，轻松应对复杂的 RESTful 接口结构。</p>
+            </div>
+            <div class="feat-item">
+                <h3>隐私数据脱敏</h3>
+                <p>自动识别并脱敏 Authorization 等敏感请求头，确保数据安全。</p>
+            </div>
+            <div class="feat-item">
+                <h3>无缝导出体验</h3>
+                <p>只需一键，即可将录制会话导出为精美的 YAML 或 Excel 文件。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const MAX_HISTORY = 3;
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            renderHistory();
+        });
+
+        function navigate() {
+            const input = document.getElementById('urlInput');
+            const btn = document.getElementById('navBtn');
+            const portal = document.getElementById('inputContainer');
+            let url = input.value.trim();
+            
+            if(!url) return;
+            if(!url.startsWith('http')) url = 'https://' + url;
+
+            try {
+                const u = new URL(url);
+                if (u.pathname === "/") url = u.origin + "/";
+            } catch(e) {}
+
+            saveHistory(url);
+            portal.classList.add('is-loading');
+
+            setTimeout(() => {
+                window.location.href = url;
+            }, 600);
+        }
+
+        function saveHistory(url) {
+            let history = JSON.parse(localStorage.getItem('recorder_history') || '[]');
+            history = history.filter(item => item !== url);
+            history.unshift(url);
+            history = history.slice(0, MAX_HISTORY);
+            localStorage.setItem('recorder_history', JSON.stringify(history));
+        }
+
+        function renderHistory() {
+            const history = JSON.parse(localStorage.getItem('recorder_history') || '[]');
+            const container = document.getElementById('historySection');
+            
+            if (history.length > 0) {
+                container.innerHTML = history.map(url => {
+                    const display = url.replace(/https?:\/\//, '').replace(/\/$/, '');
+                    return `<a class="history-link" onclick="quickNav('${url}')">${display}</a>`;
+                }).join('');
+            }
+        }
+
+        function quickNav(url) {
+            document.getElementById('urlInput').value = url;
+            navigate();
+        }
+    </script>
+</body>
+</html>

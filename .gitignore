@@ -1,0 +1,23 @@
+# 录制产物（含可能的敏感接口数据）
+captured_apis/*.yaml
+captured_apis/*.xlsx
+captured_apis/*.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
